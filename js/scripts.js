@@ -100,16 +100,16 @@ jQuery( document ).ready(function($) {
 // Form Submit
 jQuery( document ).ready(function($) {
     // Show date, Format
-    const dep2 = new Date();
-    dep2.setDate(dep2.getDate() + 6);
-    $("#msf_dates").val(new Date(dep2).toISOString().substr(0, 10));
+    const dep = new Date();
+    dep.setDate(dep.getDate() + 6);
+    $("#dates").val(new Date(dep).toISOString().substr(0, 10));
 
     // Swipe Button
-    $('#msf_swap').click(function(){
-        let msfFrom = $('#msf_origin').val(),
-        msfTo = $('#msf_destination').val();
-        $('#msf_origin').val(msfTo);
-        $('#msf_destination').val(msfFrom);
+    $('#field_swap').click(function(){
+        let msfFrom = $('#origin').val(),
+        msfTo = $('#destination').val();
+        $('#origin').val(msfTo);
+        $('#destination').val(msfFrom);
     });
 
     function validateField(field) {
@@ -129,35 +129,35 @@ jQuery( document ).ready(function($) {
     }
 
     // Booking submit
-     $('#msf_submit').on('click', function(e) {
+     $('#submit').on('click', function(e) {
         e.preventDefault();
         let formValid = true,
-        msfOrigin = $('#msf_origin').val(),
-        msfDestination = $('#msf_destination').val(),
-        msfDate = $('#msf_dates').val(),
-        msfURL = "https://book.phbus.com/en/travel/";
+        bfOrigin = $('#origin').val(),
+        bfDestination = $('#destination').val(),
+        bfDate = $('#dates').val(),
+        bfUrl = "https://book.phbus.com/en/travel/";
 
         // Validate origin
-        if(!validateField('#msf_origin')) {
+        if(!validateField('#origin')) {
             formValid = false;
         }
 
         // Validate destination
-        if(!validateField('#msf_destination')) {
+        if(!validateField('#destination')) {
             formValid = false;
         }
 
         // Same input
-        if(msfOrigin === msfDestination){
-            $('#msf_destination').addClass('is-invalid');
+        if(bfOrigin === bfDestination){
+            $('#destination').addClass('is-invalid');
             formValid = false;
         }
 
         if(formValid) {
-            msfOrigin = msfOrigin.replace(/\s/g , "-").toLowerCase();
-            msfDestination = msfDestination.replace(/\s/g , "-").toLowerCase();
-            msfURL += msfOrigin+"/"+msfDestination+"?date="+msfDate+"?sub_id=2goonlinebooking";
-            window.open(msfURL, '_blank');
+            bfOrigin = bfOrigin.replace(/\s/g , "-").toLowerCase();
+            bfDestination = bfDestination.replace(/\s/g , "-").toLowerCase();
+            bfUrl += bfOrigin+"/"+bfDestination+"?date="+bfDate;
+            window.open(bfUrl, '_blank');
         }else{
             e.preventDefault();
         }
