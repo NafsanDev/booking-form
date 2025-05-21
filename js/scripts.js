@@ -13,8 +13,8 @@ jQuery( document ).ready(function($) {
         'Bacolod', 
         'Batangas',
         'Bohol',
-		'Boracay',
-		'Butuan',
+        'Boracay',
+        'Butuan',
         'Caticlan',
         'Cagayan De oro',
         'Cebu',
@@ -22,18 +22,18 @@ jQuery( document ).ready(function($) {
         'Davao',
         'Dipolog', 
         'Dumaguete',
-		'General Santos',
+        'General Santos',
         'Iloilo', 
         'Iligan', 
         'Manila',
         'Nasipit',
         'Odiongan',
         'Ozamis',
-		'Puerto Princesa',
+        'Puerto Princesa',
         'Romblon',
         'Roxas City',
-		'Soccsksargen',
-		'Tagbilaran',
+        'Soccsksargen',
+        'Tagbilaran',
         'Zamboanga'
     ];
 
@@ -60,10 +60,7 @@ jQuery( document ).ready(function($) {
         if (searchTerm.length === 0) {
             showAllCities(targetResults);
         } else {
-            const matches = cities.filter(city => 
-                city.toLowerCase().startsWith(searchTerm)
-            );
-            updateResults(matches, targetResults);
+            updateResults(findTheMatches(searchTerm), targetResults);
         }
     });
 
@@ -87,6 +84,25 @@ jQuery( document ).ready(function($) {
                     })
             );
         });
+    }
+    
+    // find the matches
+    function findTheMatches(term){        
+        const startsWithMatches = [];
+        const containsMatches = [];
+        let allMatches = [];
+        // Split matches into priority groups
+        cities.forEach(city => {
+            const lowerCity = city.toLowerCase();
+            if (lowerCity.startsWith(term)) {
+                startsWithMatches.push(city);
+            } else if (term.length > 0 && lowerCity.includes(term)) {
+                containsMatches.push(city);
+            }
+        });
+
+        // Combine results with priority order
+        return allMatches = [...startsWithMatches, ...containsMatches];
     }
 
     // Hide results when clicking outside
